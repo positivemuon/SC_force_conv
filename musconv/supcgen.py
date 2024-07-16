@@ -103,7 +103,8 @@ class ScGenerators:
         min_length : Min length of the smallest SC lattice vector
 
         Returns:
-            A Pymatgen supercell structure that has the muon as a H atom at a Voronoi site
+            A Pymatgen supercell structure that has the muon as a H atom at a Voronoi site.
+            Returns also the supercell structure without the muon, i.e. py_scst, so we can compute the force difference.
         """
 
         min_atoms = self.py_struc.num_sites + 1
@@ -128,7 +129,7 @@ class ScGenerators:
 
         py_scst_with_mu = self.append_muon_to_supc(py_scst, sc_mat, mu_frac_coord)
 
-        return py_scst_with_mu, sc_mat, mu_frac_coord
+        return py_scst_with_mu, sc_mat, mu_frac_coord, py_scst
 
     def re_initialize(self, py_scst_with_mu, mu_frac_coord):
         """
@@ -140,6 +141,7 @@ class ScGenerators:
 
         Returns:
             A Pymatgen supercell structure that has the muon as a H atom at a Voronoi site
+            Returns also the supercell structure without the muon, i.e. py_scst, so we can compute the force difference.
         """
 
         min_atoms = py_scst_with_mu.num_sites + 1
@@ -151,7 +153,7 @@ class ScGenerators:
 
         py_scst_with_mu = self.append_muon_to_supc(py_scst, sc_mat, mu_frac_coord)
 
-        return py_scst_with_mu, sc_mat
+        return py_scst_with_mu, sc_mat, py_scst
 
 
 if __name__ == "__main__":
